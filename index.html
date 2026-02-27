@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALBUNYAN · industrial prefab & aluminium</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: #1e1e1e;
+            /* slightly lighter than #1a1a1a */
+            color: #e2e2e2;
+            /* soft white */
+            line-height: 1.5;
+        }
+
+        :root {
+            --dark-gray: #2f2f2f;
+            --steel-blue: #3d7eb0;
+            /* brighter, cleaner blue */
+            --safety-orange: #f4a94e;
+            /* warmer, softer orange */
+            --safety-orange-dark: #e68a2e;
+            /* deeper for hover */
+            --bg-light: #2c2c2c;
+            /* unified card background */
+            --text-light: #f0f0f0;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* header - always LTR layout */
+        .top-header {
+            background-color: #1e1e1e;
+            border-bottom: 3px solid var(--safety-orange);
+            padding: 0.7rem 0;
+        }
+
+        .header-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            direction: ltr;
+            /* force left-to-right layout */
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .company-name h1 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.3;
+            color: white;
+        }
+
+        .company-name .ar-name {
+            color: var(--safety-orange);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .lang-switcher {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 1px solid #555;
+            color: #ccc;
+            padding: 0.3rem 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            transition: 0.2s;
+        }
+
+        .lang-btn:hover {
+            background: var(--steel-blue);
+            color: white;
+            border-color: var(--steel-blue);
+        }
+
+        .lang-btn.active {
+            background: var(--safety-orange);
+            color: #1a1a1a;
+            border-color: var(--safety-orange);
+        }
+
+        nav {
+            background-color: #252525;
+            border-bottom: 1px solid #3a3a3a;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            padding: 0.8rem 0;
+        }
+
+        .nav-links a {
+            color: #ddd;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+            padding-bottom: 4px;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-links a:hover {
+            color: var(--safety-orange);
+            border-bottom-color: var(--safety-orange);
+        }
+
+        /* carousel */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+            background: #111;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            font-size: 2rem;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            z-index: 10;
+            border-radius: 4px;
+            color: var(--safety-orange);
+        }
+
+        .carousel-arrow:hover {
+            background: var(--steel-blue);
+        }
+
+        .prev {
+            left: 20px;
+        }
+
+        .next {
+            right: 20px;
+        }
+
+        .dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: #aaa;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background: var(--safety-orange);
+            transform: scale(1.2);
+        }
+
+        /* hero */
+        .hero-special {
+            background: var(--dark-gray);
+            padding: 3rem 0;
+            text-align: center;
+            border-bottom: 1px solid #444;
+        }
+
+        .hero-special h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .hero-special .spec-ar {
+            font-size: 1.8rem;
+            text-align: center;
+            color: var(--safety-orange);
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        /* sections */
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 2.5rem 0 1.5rem;
+            border-left: 6px solid var(--safety-orange);
+            padding-left: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--steel-blue);
+            margin-bottom: 1rem;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: #2c2c2c;
+            /* unified card background */
+            border-radius: 8px;
+            overflow: hidden;
+            border-bottom: 3px solid var(--steel-blue);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-bottom-color: var(--safety-orange);
+        }
+
+        .card-img {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .card-content p {
+            color: #bbb;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: var(--safety-orange);
+            color: #1a1a1a;
+            font-weight: 700;
+            padding: 0.8rem 2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            margin: 1rem 0 2rem;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+
+        .cta-btn:hover {
+            background: var(--safety-orange-dark);
+        }
+
+        /* about / filler sections */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin: 3rem 0;
+        }
+
+        .about-text p {
+            margin: 1rem 0;
+            color: #ccc;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .stat-item {
+            background: #2c2c2c;
+            padding: 1.5rem;
+            text-align: center;
+            border-radius: 8px;
+            border-left: 4px solid var(--safety-orange);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--safety-orange);
+        }
+
+        .stat-label {
+            color: #aaa;
+            text-transform: uppercase;
+        }
+
+        .values-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: space-between;
+            margin: 2rem 0 3rem;
+        }
+
+        .value-item {
+            flex: 1 1 200px;
+            background: #2c2c2c;
+            padding: 2rem 1.5rem;
+            border-radius: 8px;
+            border-top: 3px solid var(--steel-blue);
+            text-align: center;
+        }
+
+        .value-item i {
+            font-size: 2.5rem;
+            color: var(--safety-orange);
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        /* footer - only copyright */
+        footer {
+            background-color: #181818;
+            border-top: 2px solid var(--steel-blue);
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        .copyright {
+            text-align: center;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .header-row {
+                flex-direction: column;
+                align-items: start;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .carousel-container {
+                height: 300px;
+            }
+
+            .hero-special h2 {
+                font-size: 1.6rem;
+            }
+
+            .hero-special .spec-ar {
+                font-size: 1.3rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* arabic text direction handling */
+        [data-dir="rtl"] {
+            direction: rtl;
+            text-align: right;
+        }
+
+        [data-dir="ltr"] {
+            direction: ltr;
+            text-align: left;
+        }
+
+        /* keep header row ltr even in arabic */
+        .header-row {
+            direction: ltr !important;
+        }
+
+        .company-logo {
+            height: 4rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- header with logo & language switcher (always LTR layout) -->
+    <div class="top-header">
+        <div class="container header-row">
+            <div class="logo-area">
+                <img src="albuyan-logo.png" alt="company-logo" class="company-logo">
+                <div class="company-name">
+                    <h1 id="companyNameEn">ALBUNYAN For manufacturing of aluminum Doors, windows and curtain walls.LLC
+                    </h1>
+                    <div class="ar-name" id="companyNameAr" data-dir="rtl">شركة البنيان لصناعة أبواب ونوافذ وواجهات
+                        الألومنيوم ذ.م.م</div>
+                </div>
+            </div>
+            <div class="lang-switcher">
+                <button class="lang-btn active" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="ar">العربية</button>
+                <button class="lang-btn" data-lang="zh">中文</button>
+            </div>
+        </div>
+    </div>
+
+    <nav>
+        <div class="container">
+            <ul class="nav-links">
+                <li><a href="index.html" data-i18n="navHome">Home</a></li>
+                <li><a href="gallery.html" data-i18n="navGallery">Gallery</a></li>
+                <li><a href="contact.html" data-i18n="navContact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- image carousel -->
+    <div class="carousel-container" id="carousel">
+        <button class="carousel-arrow prev" id="prevSlide">&#10094;</button>
+        <button class="carousel-arrow next" id="nextSlide">&#10095;</button>
+        <div class="dots" id="carouselDots"></div>
+    </div>
+
+    <!-- hero specialization -->
+    <section class="hero-special">
+        <div class="container">
+            <h2 id="specEn">Pre-fabricated buildings · Hangars · Residential trailers · Containers</h2>
+            <div class="spec-ar" id="specAr" data-dir="rtl">مصنع البنيان لصناعة المباني الجاهزة - الهناجر و التريلات
+                السكنية و الحاويات</div>
+        </div>
+    </section>
+
+    <!-- featured products -->
+    <div class="container">
+        <h2 class="section-title" data-i18n="featuredTitle">Featured products</h2>
+        <div class="card-grid">
+            <div class="card">
+                <div class="card-img" style="background-image: url('./assets/12.webp');">
+                </div>
+                <div class="card-content">
+                    <h3 data-i18n="feature1">Aluminium windows & doors</h3>
+                    <p data-i18n="feature1desc">High thermal break, modern designs, durable powder coating.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-img" style="background-image: url('./assets/8.jpg');">
+                </div>
+                <div class="card-content">
+                    <h3 data-i18n="feature2">Prefab buildings & hangars</h3>
+                    <p data-i18n="feature2desc">Fast assembly, steel structures, turnkey industrial solutions.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-img" style="background-image: url('./assets/13.jpg');">
+                </div>
+                <div class="card-content">
+                    <h3 data-i18n="feature3">Residential trailers & containers</h3>
+                    <p data-i18n="feature3desc">Customized living/working spaces, off‑grid ready.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NEW filler sections: about + values (professional, industrial) -->
+    <div class="container">
+        <div class="about-grid">
+            <div class="about-text">
+                <h2 class="section-subtitle" data-i18n="aboutTitle">More than two decades of excellence</h2>
+                <p data-i18n="aboutP1">Since 2019, ALBUNYAN has been at the forefront of the prefabricated building
+                    industry in Libya and the MENA region. We combine German engineering standards with local expertise
+                    to deliver turnkey solutions for industrial, commercial and residential projects.</p>
+                <p data-i18n="aboutP2">Our 15,000 m² factory is equipped with automated aluminium extrusion lines, CNC
+                    machining centers, and robotic welding stations – ensuring precision and speed for every contract.
+                </p>
+                <a href="contact.html" class="cta-btn" data-i18n="aboutCta">Inquire about bulk orders →</a>
+            </div>
+            <div class="about-stats">
+                <div class="stat-item">
+                    <div class="stat-number">200+</div>
+                    <div class="stat-label" data-i18n="stat1">Hangars built</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">4,000 m²</div>
+                    <div class="stat-label" data-i18n="stat2">production facility</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label" data-i18n="stat3">trailers delivered</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label" data-i18n="stat4">support & logistics</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- core values / expertise cards -->
+    <div class="container">
+        <h2 class="section-title" data-i18n="valuesTitle">Our industrial edge</h2>
+        <div class="values-list">
+            <div class="value-item">
+                <div class="emoji-icon" style="font-size:3rem;">🏭</div>
+                <h3 data-i18n="value1Title">In‑house fabrication</h3>
+                <p data-i18n="value1Desc">From aluminium extrusion to steel welding, everything is done under one roof
+                    for strict quality control.</p>
+            </div>
+            <div class="value-item">
+                <div class="emoji-icon" style="font-size:3rem;">🔧</div>
+                <h3 data-i18n="value2Title">Custom designs</h3>
+                <p data-i18n="value2Desc">We adapt to your blueprints or provide full engineering support for unique
+                    industrial requirements.</p>
+            </div>
+            <div class="value-item">
+                <div class="emoji-icon" style="font-size:3rem;">⏱️</div>
+                <h3 data-i18n="value3Title">Rapid deployment</h3>
+                <p data-i18n="value3Desc">Modular construction cuts on‑site time by 60% – your project operational
+                    sooner.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- call to action -->
+    <div class="container" style="text-align: center; margin-bottom: 2rem;">
+        <a href="contact.html" class="cta-btn" data-i18n="bigCta">Discuss your next industrial project →</a>
+    </div>
+
+    <!-- footer: only copyright notice -->
+    <footer>
+        <div class="container copyright" data-i18n="copyright">© 2016, albunyan.ly All Rights Reserved.</div>
+    </footer>
+
+    <script>
+        (function () {
+            // ---------- ROBUST QUERY PARAMETER HELPER (works with file://) ----------
+            function addOrUpdateQueryParam(href, key, value) {
+                if (!href) return href;
+                const hashIndex = href.indexOf('#');
+                const hash = hashIndex >= 0 ? href.slice(hashIndex) : '';
+                const base = hashIndex >= 0 ? href.slice(0, hashIndex) : href;
+
+                const queryIndex = base.indexOf('?');
+                if (queryIndex >= 0) {
+                    const basePath = base.slice(0, queryIndex);
+                    const queryString = base.slice(queryIndex + 1);
+                    const params = new URLSearchParams(queryString);
+                    params.set(key, value);
+                    return basePath + '?' + params.toString() + hash;
+                } else {
+                    return base + '?' + key + '=' + encodeURIComponent(value) + hash;
+                }
+            }
+
+            // ---------- READ LANGUAGE FROM URL ----------
+            const urlParams = new URLSearchParams(window.location.search);
+            const initialLang = urlParams.get('lang') || 'en';
+
+            // ---------- CAROUSEL (unchanged) ----------
+            const carouselImages = [
+                './assets/4.jpg',
+                './assets/2.jpeg',
+                './assets/5.webp',
+                './assets/3.jpg'
+            ];
+
+            let currentSlide = 0;
+            const carouselContainer = document.getElementById('carousel');
+            const dotsContainer = document.getElementById('carouselDots');
+
+            function renderCarousel() {
+                const existingSlides = document.querySelectorAll('.carousel-slide');
+                existingSlides.forEach(el => el.remove());
+
+                carouselImages.forEach((imgUrl, idx) => {
+                    const slide = document.createElement('div');
+                    slide.className = 'carousel-slide' + (idx === 0 ? ' active' : '');
+                    slide.style.backgroundImage = `url('${imgUrl}')`;
+                    carouselContainer.prepend(slide);
+                });
+
+                const slides = document.querySelectorAll('.carousel-slide');
+                slides.forEach((s, i) => {
+                    if (i === currentSlide) s.classList.add('active');
+                    else s.classList.remove('active');
+                });
+
+                dotsContainer.innerHTML = '';
+                carouselImages.forEach((_, i) => {
+                    const dot = document.createElement('span');
+                    dot.className = 'dot' + (i === currentSlide ? ' active' : '');
+                    dot.addEventListener('click', () => goToSlide(i));
+                    dotsContainer.appendChild(dot);
+                });
+            }
+
+            function goToSlide(n) {
+                const slides = document.querySelectorAll('.carousel-slide');
+                if (n >= slides.length) n = 0;
+                if (n < 0) n = slides.length - 1;
+                slides.forEach(s => s.classList.remove('active'));
+                slides[n].classList.add('active');
+                currentSlide = n;
+
+                const dots = document.querySelectorAll('.dot');
+                dots.forEach((d, i) => d.classList.toggle('active', i === n));
+            }
+
+            function nextSlide() { goToSlide(currentSlide + 1); }
+            function prevSlide() { goToSlide(currentSlide - 1); }
+
+            let autoplay = setInterval(nextSlide, 5000);
+
+            document.getElementById('prevSlide').addEventListener('click', () => {
+                prevSlide();
+                clearInterval(autoplay);
+                autoplay = setInterval(nextSlide, 5000);
+            });
+            document.getElementById('nextSlide').addEventListener('click', () => {
+                nextSlide();
+                clearInterval(autoplay);
+                autoplay = setInterval(nextSlide, 5000);
+            });
+
+            renderCarousel();
+
+            // ---------- TRANSLATIONS (improved with consistent RTL handling) ----------
+            const translations = {
+                en: {
+                    navHome: "Home",
+                    navGallery: "Project Gallery",
+                    navContact: "Contact Us",
+                    companyNameEn: "Al Bunyan Factory for Prefabricated Buildings and Steel Structures",
+                    companyNameAr: "Integrated Solutions for Prefab Buildings & Steel Structures",
+                    specEn: "Prefab Buildings - Industrial Sheds - Residential Trailers - Containers",
+                    specAr: "Leader in Integrated Engineering Solutions for Steel Structures and Modern Facades",
+                    featuredTitle: "Featured Products",
+                    feature1: "Aluminum Doors and Windows",
+                    feature1desc: "High thermal resistance, modern designs, durable paint, and global specifications.",
+                    feature2: "Prefab Buildings and Sheds",
+                    feature2desc: "Fast assembly, durable steel structures, turnkey industrial solutions.",
+                    feature3: "Residential Trailers and Containers",
+                    feature3desc: "Customized living and working spaces, designed to withstand various operational conditions.",
+                    aboutTitle: "Over Two Decades of Excellence",
+                    aboutP1: "Al Bunyan Factory for Prefabricated Buildings and Steel Structures was established on an area of 4,000 square meters, managed by a team of specialized technicians. We possess an integrated design and manufacturing system including the latest bending, cutting, and forming machines, in addition to Fiber Laser cutting technologies. Thanks to our extensive experience in steel structure construction, we are committed to meeting our clients' needs with distinctive Libyan specifications that combine quality and durability.",
+                    aboutP2: "Since our launch in 2019, we have placed precision and innovation as a fundamental pillar, combining advanced technologies with local expertise to execute the largest industrial and commercial projects with accuracy and speed.",
+                    aboutCta: "Inquire about bulk orders ←",
+                    stat1: "Sheds Built",
+                    stat2: "Manufacturing Area (m²)",
+                    stat3: "Trailers Delivered",
+                    stat4: "Support & Logistics",
+                    valuesTitle: "Our Industrial Edge",
+                    value1Title: "Integrated Manufacturing",
+                    value1Desc: "From steel structure forming to aluminum facades, everything is done in-house to ensure the highest quality standards.",
+                    value2Title: "Custom Designs",
+                    value2Desc: "We adapt to your engineering plans or provide full support to design solutions tailored to your unique needs.",
+                    value3Title: "Rapid Deployment",
+                    value3Desc: "Modular construction reduces on-site work time by 60% – your project is ready for operation in record time.",
+                    bigCta: "Discuss your next industrial project ←",
+                    copyright: "© 2024, albunyan.ly All rights reserved."
+                },
+                ar: {
+                    navHome: 'الرئيسية',
+                    navGallery: 'معرض الأعمال',
+                    navContact: 'اتصل بنا',
+                    companyNameEn: 'مصنع البنيان لصناعة المباني الجاهزة والهياكل الفولاذية',
+                    companyNameAr: 'حلول متكاملة للمباني الجاهزة والهياكل الفولاذية',
+                    specEn: 'المباني الجاهزة - الهناجر - التريلات السكنية - الحاويات',
+                    specAr: 'الرائدة في الحلول الهندسية المتكاملة للهياكل الفولاذية والواجهات الحديثة',
+                    featuredTitle: 'منتجات مميزة',
+                    feature1: 'أبواب ونوافذ ألمنيوم',
+                    feature1desc: 'مقاومة حرارية عالية، تصاميم عصرية، دهان متين ومواصفات عالمية.',
+                    feature2: 'مبان جاهزة وهناجر',
+                    feature2desc: 'تجميع سريع، هياكل فولاذية متينة، حلول صناعية تسليم مفتاح.',
+                    feature3: 'تريلات سكنية وحاويات',
+                    feature3desc: 'مساحات معيشة وعمل مخصصة، مصممة لتحمل مختلف الظروف التشغيلية.',
+                    aboutTitle: 'أكثر من عقدين من التميز',
+                    aboutP1: 'تأسس مصنع البنيان لصناعة المباني الجاهزة والهياكل الفولاذية على مساحة 4000 متر مربع، ويديره نخبة من الفنيين المتخصصين. نمتلك نظام تصميم وتصنيع متكامل يشمل أحدث آلات الثني والقطع والتشكيل، بالإضافة إلى تقنيات القطع بالألياف الليزرية (Fiber Laser) وغيرها. وبفضل خبرتنا الواسعة في مجال بناء الهياكل الفولاذية، نلتزم بتلبية احتياجات عملائنا بمواصفات ليبية مميزة تجمع بين الجودة والمتانة.',
+                    aboutP2: 'منذ انطلاقتنا في عام 2019، وضعنا الدقة والابتكار كركيزة أساسية، حيث نجمع بين التقنيات المتطورة والخبرة المحلية لتنفيذ أضخم المشاريع الصناعية والتجارية بدقة وسرعة فائقة.',
+                    aboutCta: 'استفسر عن الطلبيات الكبيرة ←',
+                    stat1: 'هناجر تم بناؤها',
+                    stat2: 'مساحة التصنيع (م²)',
+                    stat3: 'تريلات مسلمة',
+                    stat4: 'دعم ولوجستيات',
+                    valuesTitle: 'تفوقنا الصناعي',
+                    value1Title: 'تصنيع متكامل',
+                    value1Desc: 'من تشكيل الهياكل الفولاذية إلى واجهات الألمنيوم، كل شيء يتم داخلياً لضمان أعلى معايير الجودة.',
+                    value2Title: 'تصاميم مخصصة',
+                    value2Desc: 'نحن نتكيف مع مخططاتك الهندسية أو نقدم دعماً كاملاً لتصميم حلول تناسب احتياجاتك الفريدة.',
+                    value3Title: 'نشر سريع',
+                    value3Desc: 'البناء المعياري يقلل وقت العمل في الموقع بنسبة 60٪ – مشروعك يصبح جاهزاً للتشغيل في وقت قياسي.',
+                    bigCta: 'ناقش مشروعك الصناعي القادم ←',
+                    copyright: '© 2024، albunyan.ly جميع الحقوق محفوظة.'
+                },
+                zh: {
+                    navHome: "首页",
+                    navGallery: "作品展厅",
+                    navContact: "联系我们",
+                    companyNameEn: "阿尔布延预制建筑和钢结构工厂",
+                    companyNameAr: "预制建筑与钢结构综合解决方案",
+                    specEn: "预制建筑 - 工业大棚 - 居住拖车 - 集装箱",
+                    specAr: "钢结构与现代幕墙综合工程解决方案的领导者",
+                    featuredTitle: "特色产品",
+                    feature1: "铝合金门窗",
+                    feature1desc: "高耐热性，现代设计，耐用涂层，符合国际标准。",
+                    feature2: "预制建筑与工业大棚",
+                    feature2desc: "快速组装，坚固钢结构，交钥匙工业解决方案。",
+                    feature3: "居住拖车与集装箱",
+                    feature3desc: "定制的生活和工作空间，设计用于承受各种操作条件。",
+                    aboutTitle: "二十余载卓越之路",
+                    aboutP1: "阿尔布延预制建筑和钢结构工厂占地4000平方米，由专业技术人员团队管理。我们拥有集成的设计和制造系统，包括最新的折弯、切割和成型机器，以及光纤激光切割技术等。凭借我们在钢结构建筑领域的丰富经验，我们致力于以融合质量与耐久的独特利比亚规格满足客户需求。",
+                    aboutP2: "自2019年成立以来，我们始终将精准与创新作为核心基石，融合先进技术与本地经验，以高精度和高速度执行最庞大的工业和商业项目。",
+                    aboutCta: "咨询大宗订单 ←",
+                    stat1: "已建成的工业大棚",
+                    stat2: "制造面积（平方米）",
+                    stat3: "已交付的拖车",
+                    stat4: "支持与物流",
+                    valuesTitle: "我们的工业优势",
+                    value1Title: "集成制造",
+                    value1Desc: "从钢结构成型到铝合金幕墙，所有工序均在内部完成，以确保最高质量标准。",
+                    value2Title: "定制设计",
+                    value2Desc: "我们适应您的工程设计图纸，或提供全面支持以设计适合您独特需求的解决方案。",
+                    value3Title: "快速部署",
+                    value3Desc: "模块化建造减少60%现场工作时间——您的项目可在创纪录时间内准备就绪并投入运行。",
+                    bigCta: "洽谈您的下一个工业项目 ←",
+                    copyright: "© 2024，albunyan.ly 版权所有。"
+                }
+            };
+
+            // ---------- MAIN LANGUAGE FUNCTION (with full RTL control) ----------
+            function setLanguage(lang) {
+                // 1. update all data-i18n elements
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    if (translations[lang] && translations[lang][key]) {
+                        el.textContent = translations[lang][key];
+                    }
+                });
+
+                // 2. update specific ID elements
+                document.getElementById('companyNameEn').textContent = translations[lang].companyNameEn;
+                document.getElementById('companyNameAr').textContent = translations[lang].companyNameAr;
+                document.getElementById('specEn').textContent = translations[lang].specEn;
+                document.getElementById('specAr').textContent = translations[lang].specAr;
+
+                // 3. set dir attribute for ALL elements that now contain Arabic text
+                //    (all data-i18n elements + the two specific Arabic ones)
+                const arabicTextElements = [
+                    ...document.querySelectorAll('[data-i18n]'),
+                    document.getElementById('companyNameAr'),
+                    document.getElementById('specAr')
+                ];
+
+                arabicTextElements.forEach(el => {
+                    if (lang === 'ar') {
+                        el.setAttribute('dir', 'rtl');
+                        // also keep data-dir for backward compatibility
+                        el.setAttribute('data-dir', 'rtl');
+                    } else {
+                        el.setAttribute('dir', 'ltr');
+                        el.setAttribute('data-dir', 'ltr');
+                    }
+                });
+
+                // 4. set html lang attribute
+                document.documentElement.lang = lang;
+
+                // 5. toggle active class on language buttons
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.lang === lang);
+                });
+
+                // 6. update ALL internal links (nav, CTAs, any <a> pointing to .html) to include ?lang=
+                document.querySelectorAll('a[href*=".html"]').forEach(link => {
+                    const originalHref = link.getAttribute('href');
+                    if (originalHref && !originalHref.startsWith('http') && !originalHref.startsWith('#')) {
+                        const newHref = addOrUpdateQueryParam(originalHref, 'lang', lang);
+                        link.setAttribute('href', newHref);
+                    }
+                });
+
+                // 7. override language button clicks: navigate with new lang parameter
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    btn.onclick = (e) => {
+                        e.preventDefault();
+                        const newLang = btn.dataset.lang;
+                        const currentPath = window.location.pathname;
+                        const currentSearch = window.location.search;
+                        const currentUrl = currentPath + currentSearch;
+                        const newUrl = addOrUpdateQueryParam(currentUrl, 'lang', newLang);
+                        window.location.href = newUrl;
+                    };
+                });
+            }
+
+            // ---------- INITIALIZE WITH LANGUAGE FROM URL ----------
+            setLanguage(initialLang);
+        })();
+    </script>
+</body>
+
+</html>
